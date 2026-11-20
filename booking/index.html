@@ -36,6 +36,21 @@
     }
     window.__exampleToast=toast;
     function isLive(u){ try{ var x=new URL(u, document.baseURI); return x.hostname.slice(-'allherelounge.com'.length)==='allherelounge.com' ? x : null; }catch(e){ return null; } }
+    // Example-only prices (CHF), by activity type. The live system is not changed.
+    var PRICE_CHF={ eeg:280 };
+    function applyPrices(j){
+      (j.templates||[]).forEach(function(t){ var p=PRICE_CHF[t.type]; if(p==null) return;
+        if(Number(t.price)>0) t.price=p;
+        if(t.prices) Object.keys(t.prices).forEach(function(v){ if(Number(t.prices[v])>0 && (!t.pricesResolved||!t.pricesResolved[v]||t.pricesResolved[v].currency==='CHF')) t.prices[v]=p; });
+        if(t.pricesResolved) Object.keys(t.pricesResolved).forEach(function(v){ var r=t.pricesResolved[v];
+          if(r && r.currency==='CHF' && Number(r.price)>0){ r.price=p; r.equivalent=p; } });
+      });
+      (j.activities||[]).forEach(function(a){ var p=PRICE_CHF[a.type]; if(p==null) return;
+        if(String(a.currency||'CHF').toUpperCase()!=='CHF') return;
+        if(Number(a.priceResolved)>0) a.priceResolved=p;
+        if(Number(a.price)>0) a.price=p;
+      });
+    }
     var realFetch=window.fetch.bind(window);
     window.fetch=function(input, init){
       init=init||{};
@@ -45,7 +60,11 @@
       if(x && x.hostname===API_HOST){
         if(method==='GET' && READ_ONLY.indexOf(x.pathname)>=0){
           // anonymous read: never send a session or key from this copy
-          return realFetch(x.href,{cache:'no-store'});
+          var req=realFetch(x.href,{cache:'no-store'});
+          if(x.pathname!=='/booking') return req;
+          return req.then(function(r){ if(!r.ok) return r;
+            return r.json().then(function(j){ applyPrices(j);
+              return new Response(JSON.stringify(j),{status:200,headers:{'Content-Type':'application/json'}}); }); });
         }
         if(x.pathname!=='/ingest') toast();
         return Promise.resolve(new Response('{"error":"example_page"}',{status:503,headers:{'Content-Type':'application/json'}}));
