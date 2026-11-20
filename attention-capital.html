@@ -108,7 +108,7 @@
     .ac-note { font-size: 13px; font-style: italic; opacity: .6; margin: 26px 0 0; }
 
     /* split: photo + text (signature activities) */
-    .ac-split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .ac-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
     .ac-split--rev .ac-split__media { order: 2; }
     .ac-split__media img { width: 100%; border-radius: var(--radius-card, 20px); display: block;
       aspect-ratio: 4 / 3; object-fit: cover; object-position: center 25%; }
@@ -122,7 +122,7 @@
       border: 1px solid rgba(255,255,255,.35); border-radius: 50px; }
 
     /* four enhancement cards */
-    .ac-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+    .ac-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; margin-top: 40px; }
     .ac-card { background: var(--bg-card, #0d1526); border-radius: var(--radius-card, 20px); padding: 28px 24px;
       border: 1px solid rgba(255,255,255,.07); }
     .ac-card__num { font-size: 12px; letter-spacing: .3em; color: #e48ad9; margin: 0 0 12px; }
@@ -137,7 +137,7 @@
     .ac-card__intro { font-size: 13px; font-style: italic; opacity: .6; margin: 0 0 10px; }
 
     /* two audience cards with photos */
-    .ac-share { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+    .ac-share { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; margin-top: 40px; }
     .ac-share__card { background: var(--bg-card, #0d1526); border-radius: var(--radius-card, 20px); overflow: hidden;
       border: 1px solid rgba(255,255,255,.07); }
     .ac-share__card img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; display: block; }
@@ -148,7 +148,7 @@
     .ac-share__ideal { font-style: italic; color: #e48ad9; opacity: 1 !important; }
 
     /* four formats */
-    .ac-formats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; margin-top: 40px; }
+    .ac-formats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; margin-top: 40px; }
     .ac-format { border-top: 2px solid var(--accent, #9E3694); padding-top: 20px; }
     .ac-format h3 { font-family: var(--font-display, "Montserrat", sans-serif); font-weight: 400; font-size: 20px;
       text-transform: uppercase; margin: 0 0 10px; line-height: 1.2; }
@@ -174,7 +174,7 @@
     .page-exp .ac-price-lead { margin: 0 0 4px !important; }
     .page-exp .ac-download { margin-top: 24px; }
     @media (max-width: 1000px) {
-      .ac-cards, .ac-formats { grid-template-columns: 1fr 1fr; }
+      .ac-cards, .ac-formats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 880px) {
       .ac-split, .ac-share { grid-template-columns: 1fr; gap: 28px; }
@@ -291,11 +291,6 @@
             <p class="ac-split__q">How often does your mind wander?<br />How stable is your attention?</p>
             <p>Through All Here’s advanced brain imaging technology using high-density EEG, participants are invited to explore their attention in real time.</p>
             <p>An interactive and engaging experience where participants can challenge one another, compare their attention performance in real time and enjoy a moment of friendly competition and shared discovery.</p>
-            <ul class="ac-tags">
-              <li>Concentration</li>
-              <li>Mind-wandering</li>
-              <li>Self-awareness</li>
-            </ul>
             <p class="ac-note">May be organised in small rotating groups. Not a medical or diagnostic assessment.</p>
           </div>
         </div>
@@ -315,11 +310,6 @@
             <p class="ac-split__q">An immersive journey into inner awareness</p>
             <p>An immersive mixed-reality experience powered by All Here's Silent Mind XR Platform.</p>
             <p>Participants are invited to turn their attention inward, explore the experience of meditation and discover moments of inner silence.</p>
-            <ul class="ac-tags">
-              <li>Attention</li>
-              <li>Inner silence</li>
-              <li>Self-awareness</li>
-            </ul>
           </div>
         </div>
       </div>
@@ -439,7 +429,7 @@
             <p class="text-dim ac-price-lead">Private bookings from 3 participants, starting at</p>
             <div class="amount">CHF 180</div>
             <p class="text-dim ac-price-note">per person.</p>
-            <a class="btn btn-ghost ac-download" href="https://allheregeneva.github.io/allherelounge-example/assets/AllHere_Attention_Capital_Experience.pdf" download>Download PDF</a>
+            <a class="btn btn-ghost ac-download" href="https://allheregeneva.github.io/allherelounge-example/assets/AllHere_Attention_Capital_Experience.pdf" target="_blank" rel="noopener">Explore the Experience Brochure (PDF)</a>
           </div>
         </div>
 
